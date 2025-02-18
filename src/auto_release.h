@@ -6,7 +6,7 @@
 namespace game
 {
 
-    template <class T, T Invalid>
+    template <class T, T Invalid = {}>
     class AutoRelease
     {
     public:
@@ -39,7 +39,7 @@ namespace game
             AutoRelease new_obj{std::move(other)};
             swap(new_obj);
 
-            return this;
+            return *this;
         }
 
         auto swap(AutoRelease &other) noexcept -> void
