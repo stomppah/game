@@ -1,5 +1,8 @@
 #include "exception.h"
 
+#include <format>
+#include <sstream>
+
 namespace game
 {
     Exception::Exception(const std::string &what)
@@ -9,6 +12,8 @@ namespace game
 
     auto Exception::stacktrace() const -> std::string
     {
-        return std::to_string(trace_);
+        std::stringstream ss;
+        ss << trace_;
+        return ss.str();
     }
 }

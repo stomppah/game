@@ -1,19 +1,10 @@
 #include <print>
+#include <format>
 #include <stdexcept>
 #include <iostream>
 
 #include "window.h"
 #include "exception.h"
-
-auto bar() -> void
-{
-    throw game::Exception("err");
-}
-
-auto foo() -> void
-{
-    bar();
-}
 
 auto main() -> int
 {
@@ -21,18 +12,20 @@ auto main() -> int
 
     try
     {
-        foo();
+        game::Window window{800u, 600u};
+
+        while (window.running())
+        {
+        }
     }
-    catch (game::Exception &err)
+    catch (const game::Exception &err)
     {
-        std::println(std::cerr, "exception {} {}", err.what(), err.stacktrace());
+        std::println(std::cerr, "{}", err);
     }
-
-    // game::Window window{800u, 600u};
-
-    // while (window.running())
-    // {
-    // }
+    catch (...)
+    {
+        std::println(std::cerr, "unknown exception");
+    }
 
     return 0;
 }
