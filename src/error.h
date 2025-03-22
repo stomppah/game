@@ -4,6 +4,7 @@
 #include <string_view>
 
 #include "exception.h"
+#include "auto_release.h"
 
 namespace game
 {
@@ -17,4 +18,9 @@ namespace game
         }
     }
 
+    template <class T, T Invalid, class... Args>
+    auto ensure(AutoRelease<T, Invalid> &obj, std::string_view msg, Args &&...args) -> void
+    {
+        ensure(!!obj, msg, std::forward(args)...);
+    }
 }

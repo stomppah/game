@@ -8,7 +8,7 @@
 #include "auto_release.h"
 #include "error.h"
 
-namespace game
+namespace
 {
     auto g_running = true;
 
@@ -30,6 +30,54 @@ namespace game
         return ::DefWindowProcA(hWnd, Msg, wParam, lParam);
     }
 
+    auto resolve_wgl_functions(HINSTANCE instance) -> void
+    {
+        auto wc = ::WNDCLASS{};
+        wc.lpfnWndProc = ::DefWindowProc;
+        wc.lpszClassName = "dummy window";
+        wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+        wc.hInstance = instance;
+
+        game::ensure(::RegisterClassA(&wc) != 0, "could not register dummy window");
+
+        auto dummy_window = game::AutoRelease<::HWND>{
+            ::CreateWindowExA(
+                0,                // style
+                wc.lpszClassName, // classname
+                wc.lpszClassName,
+                0,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT,
+                CW_USEDEFAULT, 0, 0, wc.hInstance, 0),
+            ::DestroyWindow};
+
+        game::ensure(dummy_window, "could not create dummy window");
+
+        auto dc = game::AutoRelease<::HDC>{
+            ::GetDC(dummy_window), [&dummy_window](auto dc)
+            {
+                ::ReleaseDC(dummy_window, dc);
+            }};
+
+        auto pfd = ::PIXELFORMATDESCRIPTOR{};
+        pfd.nSize = sizeof(::PIXELFORMATDESCRIPTOR);
+        pfd.nVersion = 1;
+        pfd.iPixelType = PFD_TYPE_RGBA;
+        pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+        pfd.cColorBits = 32;
+        pfd.cAlphaBits = 8;
+        pfd.iLayerType = PFD_MAIN_PLANE;
+        pfd.cDepthBits = 24;
+        pfd.cStencilBits = 8;
+
+        auto pixel_format = ::ChoosePixelFormat(dc, &pfd);
+        game::ensure(pixel_format != 0, "failed to choose pixel format");
+    }
+}
+
+namespace game
+{
     Window::Window(std::uint32_t width, std::uint32_t height)
         : window_({}), wc_({})
     {
@@ -66,6 +114,9 @@ namespace game
 
         ::ShowWindow(window_, SW_SHOW);
         ::UpdateWindow(window_);
+
+        // Resolve WGL Functions
+        // init opengl
     }
 
     auto Window::running() const -> bool
