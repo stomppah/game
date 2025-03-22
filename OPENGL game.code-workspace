@@ -7,7 +7,8 @@
 	"settings": {
 		"files.associations": {
 			"ios": "cpp",
-			"xiosbase": "cpp"
+			"xiosbase": "cpp",
+			"stdexcept": "cpp"
 		}
 	}
 }
