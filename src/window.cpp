@@ -9,7 +9,6 @@
 
 namespace game
 {
-
     auto g_running = true;
 
     auto CALLBACK window_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) -> LRESULT
@@ -34,7 +33,7 @@ namespace game
         : window_({}), wc_({})
     {
         wc_ = {};
-        wc_.lpfnWndProc = ::DefWindowProcA,
+        wc_.lpfnWndProc = window_proc,
         wc_.hInstance = ::GetModuleHandleA(nullptr),
         wc_.lpszClassName = "window class",
         wc_.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -76,6 +75,13 @@ namespace game
 
     auto Window::running() const -> bool
     {
+        auto message = ::MSG{};
+        while (::PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE) != 0)
+        {
+            ::TranslateMessage(&message);
+            ::DispatchMessageA(&message);
+        }
+
         return g_running;
     }
 
