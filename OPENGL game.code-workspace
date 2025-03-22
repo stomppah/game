@@ -9,7 +9,8 @@
 			"ios": "cpp",
 			"xiosbase": "cpp",
 			"stdexcept": "cpp",
-			"format": "cpp"
+			"format": "cpp",
+			"xstring": "cpp"
 		}
 	}
 }

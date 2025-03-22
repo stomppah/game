@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <stacktrace>
 #include <string>
+#include <cstdint>
 #include <format>
 
 namespace game
@@ -10,7 +11,7 @@ namespace game
     class Exception : public std::runtime_error
     {
     public:
-        Exception(const std::string &what);
+        Exception(const std::string &what, std::uint32_t skip = 1u);
 
         auto stacktrace() const -> std::string;
 

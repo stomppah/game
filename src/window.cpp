@@ -6,6 +6,7 @@
 #include <stdexcept>
 
 #include "auto_release.h"
+#include "error.h"
 
 namespace game
 {
@@ -38,10 +39,7 @@ namespace game
         wc_.lpszClassName = "window class",
         wc_.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 
-        if (::RegisterClassA(&wc_) == 0)
-        {
-            throw std::runtime_error("failed to register class!");
-        }
+        ensure(::RegisterClassA(&wc_) != 0, "failed to register class");
 
         ::RECT rect{};
         rect.left = {};
@@ -49,10 +47,7 @@ namespace game
         rect.top = {};
         rect.bottom = static_cast<int>(height);
 
-        if (::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false) == 0)
-        {
-            throw std::runtime_error("could not resize window");
-        }
+        ensure(::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false) != 0, "could not resize window");
 
         window_ = {::CreateWindowExA(
                        0,                 // style
