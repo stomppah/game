@@ -1,14 +1,35 @@
 #include "window.h"
 
 #include <cstdint>
-
+#include <print>
 #include <Windows.h>
+#include <stdexcept>
 
 #include "auto_release.h"
-#include <stdexcept>
 
 namespace game
 {
+
+    auto g_running = true;
+
+    auto CALLBACK window_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) -> LRESULT
+    {
+        switch (Msg)
+        {
+        case WM_CLOSE:
+            g_running = false;
+            break;
+        case WM_KEYDOWN:
+            std::println("key down");
+            break;
+
+        default:
+            break;
+        };
+
+        return ::DefWindowProcA(hWnd, Msg, wParam, lParam);
+    }
+
     Window::Window(std::uint32_t width, std::uint32_t height)
         : window_({}), wc_({})
     {
@@ -52,4 +73,10 @@ namespace game
         ::ShowWindow(window_, SW_SHOW);
         ::UpdateWindow(window_);
     }
+
+    auto Window::running() const -> bool
+    {
+        return g_running;
+    }
+
 }
