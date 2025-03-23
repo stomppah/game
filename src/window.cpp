@@ -47,6 +47,41 @@ namespace
         function = reinterpret_cast<T>(address);
     }
 
+    auto init_opengl(HDC dc) -> void
+    {
+        int pixel_format_attribs[] = {
+            WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+            WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+            WGL_DOUBLE_BUFFER_ARB, GL_TRUE,
+            WGL_ACCELERATION_ARB, WGL_FULL_ACCELERATION_ARB,
+            WGL_PIXEL_TYPE_ARB, WGL_TYPE_RGBA_ARB,
+            WGL_COLOR_BITS_ARB, 32,
+            WGL_DEPTH_BITS_ARB, 24,
+            WGL_STENCIL_BITS_ARB, 8, 0
+
+        };
+
+        auto pixel_format = 0;
+        auto num_formats = UINT{};
+        ::wglChoosePixelFormatARB(dc, pixel_format_attribs, 0, 1, &pixel_format, &num_formats);
+        game::ensure(num_formats != 0u, "could not choose a pixel format");
+
+        auto pfd = ::PIXELFORMATDESCRIPTOR{};
+        game::ensure(::DescribePixelFormat(dc, pixel_format, sizeof(pfd), &pfd) != 0, "could not describe pixel format");
+        game::ensure(::SetPixelFormat(dc, pixel_format, &pfd) == TRUE, "could not set pixel format");
+
+        int gl_attribs[] = {
+            WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
+            WGL_CONTEXT_MINOR_VERSION_ARB, 6,
+            WGL_CONTEXT_PROFILE_MASK_ARB,
+            WGL_CONTEXT_CORE_PROFILE_BIT_ARB, 0};
+
+        auto context = ::wglCreateContextAttribsARB(dc, 0, gl_attribs);
+        game::ensure(context != nullptr, "failed to create wgl context");
+
+        game::ensure(::wglMakeCurrent(dc, context) == TRUE, "failed to make context current");
+    }
+
     auto resolve_wgl_functions(HINSTANCE instance) -> void
     {
         auto wc = ::WNDCLASS{};
@@ -109,7 +144,7 @@ namespace
 namespace game
 {
     Window::Window(std::uint32_t width, std::uint32_t height)
-        : window_({}), wc_({})
+        : window_({}), dc_({}), wc_({})
     {
         wc_ = {};
         wc_.lpfnWndProc = window_proc,
@@ -142,12 +177,18 @@ namespace game
                        nullptr),
                    ::DestroyWindow};
 
+        dc_ = game::AutoRelease<::HDC>{
+            ::GetDC(window_), [this](auto dc_)
+            {
+                ::ReleaseDC(window_, dc_);
+            }};
+
         ::ShowWindow(window_, SW_SHOW);
         ::UpdateWindow(window_);
 
         resolve_wgl_functions(wc_.hInstance);
 
-        // init opengl
+        init_opengl(dc_);
     }
 
     auto Window::running() const -> bool
@@ -158,6 +199,9 @@ namespace game
             ::TranslateMessage(&message);
             ::DispatchMessageA(&message);
         }
+
+        ::glClear(GL_COLOR_BUFFER_BIT);
+        ::SwapBuffers(dc_);
 
         return g_running;
     }

@@ -13,6 +13,7 @@ namespace game
     {
     private:
         AutoRelease<::HWND, nullptr> window_;
+        AutoRelease<::HDC> dc_;
         WNDCLASSA wc_; // WEIRD WINDOWS STUFF
     public:
         Window(std::uint32_t width, std::uint32_t height);
