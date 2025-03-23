@@ -15,20 +15,20 @@ auto main() -> int
     {
         game::Window window{800u, 600u};
 
+        ::glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+        // create shaders
+        // create program
+        // link shaders and program
+        // create VAO
+        // create VBO
+        // set it all up
+
         while (window.running())
         {
-            static auto b = 1.0f;
-            static auto inc = -0.001f;
-
-            b += inc;
-            if ((b <= 0.0f) || (b >= 1.0f))
-            {
-                inc *= -1.0f;
-            }
-
-            ::glClearColor(0.0f, 0.5f, b, 1.0f);
-
             ::glClear(GL_COLOR_BUFFER_BIT);
+
+            // draw
 
             window.swap();
         }
