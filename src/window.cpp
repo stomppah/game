@@ -189,6 +189,8 @@ namespace game
         resolve_wgl_functions(wc_.hInstance);
 
         init_opengl(dc_);
+
+        ::glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
     }
 
     auto Window::running() const -> bool
