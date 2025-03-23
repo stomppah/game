@@ -26,5 +26,6 @@ namespace game
         auto operator=(Window &&) -> Window & = delete;
 
         auto running() const -> bool;
+        auto swap() const -> void;
     };
 }

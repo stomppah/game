@@ -37,7 +37,7 @@ namespace
     }
 
     template <class T>
-    auto resolve_wgl_function(T &function, const std::string &name) -> void
+    auto resolve_gl_function(T &function, const std::string &name) -> void
     {
         const auto address = ::wglGetProcAddress(name.c_str());
         game::ensure(address, "could not resolve {}", name);
@@ -132,10 +132,16 @@ namespace
         game::ensure(::wglMakeCurrent(dc, context) == TRUE, "failed to make wgl context current");
 
         // Resolve WGL Functions
-        resolve_wgl_function(wglCreateContextAttribsARB, "wglCreateContextAttribsARB");
-        resolve_wgl_function(wglChoosePixelFormatARB, "wglChoosePixelFormatARB");
+        resolve_gl_function(wglCreateContextAttribsARB, "wglCreateContextAttribsARB");
+        resolve_gl_function(wglChoosePixelFormatARB, "wglChoosePixelFormatARB");
 
         game::ensure(::wglMakeCurrent(dc, 0) == TRUE, "could not unbind context");
+    }
+
+    auto resolve_global_gl_functions() -> void
+    {
+#define RESOLVE(TYPE, NAME) resolve_gl_function(NAME, #NAME);
+        FOR_OPENGL_FUNCTIONS(RESOLVE)
     }
 }
 
@@ -187,6 +193,7 @@ namespace game
         resolve_wgl_functions(wc_.hInstance);
 
         init_opengl(dc_);
+        resolve_global_gl_functions();
     }
 
     auto Window::running() const -> bool
@@ -198,21 +205,12 @@ namespace game
             ::DispatchMessageA(&message);
         }
 
-        static auto b = 1.0f;
-        static auto inc = -0.001f;
-
-        b += inc;
-        if ((b <= 0.0f) || (b >= 1.0f))
-        {
-            inc *= -1.0f;
-        }
-
-        ::glClearColor(0.0f, 0.5f, b, 1.0f);
-
-        ::glClear(GL_COLOR_BUFFER_BIT);
-        ::SwapBuffers(dc_);
-
         return g_running;
+    }
+
+    auto Window::swap() const -> void
+    {
+        ::SwapBuffers(dc_);
     }
 
 }
