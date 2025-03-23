@@ -2,14 +2,22 @@
 
 #include <cstdint>
 #include <print>
+
 #include <Windows.h>
-#include <stdexcept>
+#include <gl/gl.h>
+
+#include "third-party/opengl/wglext.h"
 
 #include "auto_release.h"
 #include "error.h"
 
+#pragma comment(lib, "OpenGL32.lib")
+
 namespace
 {
+    PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
+    PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
+
     auto g_running = true;
 
     auto CALLBACK window_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) -> LRESULT
@@ -28,6 +36,15 @@ namespace
         };
 
         return ::DefWindowProcA(hWnd, Msg, wParam, lParam);
+    }
+
+    template <class T>
+    auto resolve_wgl_function(T &function, const std::string &name) -> void
+    {
+        const auto address = ::wglGetProcAddress(name.c_str());
+        game::ensure(address, "could not resolve {}", name);
+
+        function = reinterpret_cast<T>(address);
     }
 
     auto resolve_wgl_functions(HINSTANCE instance) -> void
@@ -73,6 +90,19 @@ namespace
 
         auto pixel_format = ::ChoosePixelFormat(dc, &pfd);
         game::ensure(pixel_format != 0, "failed to choose pixel format");
+
+        game::ensure(::SetPixelFormat(dc, pixel_format, &pfd) == TRUE, "failed to set pixel format");
+
+        const auto context = game::AutoRelease<HGLRC>{::wglCreateContext(dc), ::wglDeleteContext};
+        game::ensure(context, "failed to create wgl context");
+
+        game::ensure(::wglMakeCurrent(dc, context) == TRUE, "failed to make wgl context current");
+
+        // Resolve WGL Functions
+        resolve_wgl_function(wglCreateContextAttribsARB, "wglCreateContextAttribsARB");
+        resolve_wgl_function(wglChoosePixelFormatARB, "wglChoosePixelFormatARB");
+
+        game::ensure(::wglMakeCurrent(dc, 0) == TRUE, "could not unbind context");
     }
 }
 
@@ -115,7 +145,8 @@ namespace game
         ::ShowWindow(window_, SW_SHOW);
         ::UpdateWindow(window_);
 
-        // Resolve WGL Functions
+        resolve_wgl_functions(wc_.hInstance);
+
         // init opengl
     }
 

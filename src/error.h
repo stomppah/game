@@ -14,7 +14,7 @@ namespace game
     {
         if (!predicate)
         {
-            throw Exception(std::vformat(msg, std::make_format_args(std::forward(args)...)), 2u);
+            throw Exception(std::vformat(msg, std::make_format_args(std::forward<Args>(args)...)), 2u);
         }
     }
 
