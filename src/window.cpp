@@ -189,8 +189,6 @@ namespace game
         resolve_wgl_functions(wc_.hInstance);
 
         init_opengl(dc_);
-
-        ::glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
     }
 
     auto Window::running() const -> bool
@@ -201,6 +199,17 @@ namespace game
             ::TranslateMessage(&message);
             ::DispatchMessageA(&message);
         }
+
+        static auto b = 1.0f;
+        static auto inc = -0.001f;
+
+        b += inc;
+        if ((b <= 0.0f) || (b >= 1.0f))
+        {
+            inc *= -1.0f;
+        }
+
+        ::glClearColor(0.0f, 0.5f, b, 1.0f);
 
         ::glClear(GL_COLOR_BUFFER_BIT);
         ::SwapBuffers(dc_);
