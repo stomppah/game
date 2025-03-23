@@ -3,10 +3,8 @@
 #include <cstdint>
 #include <print>
 
-#include <Windows.h>
-#include <gl/gl.h>
-
-#include "third-party/opengl/wglext.h"
+#define NO_EXTERN
+#include "opengl.h"
 
 #include "auto_release.h"
 #include "error.h"
