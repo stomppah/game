@@ -2,6 +2,7 @@ add_executable(game
     exception.cpp
     main.cpp
     window.cpp
+    shader.cpp
 )
 
 target_include_directories(game PUBLIC ${PROJECT_SOURCE_DIR}/third-party/opengl)
