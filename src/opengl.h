@@ -6,8 +6,12 @@
 #include "third-party/opengl/glext.h"
 #include "third-party/opengl/wglext.h"
 
-#define FOR_OPENGL_FUNCTIONS(DO) \
-    DO(::PFNGLCREATESHADERPROC, glCreateShader)
+#define FOR_OPENGL_FUNCTIONS(DO)                  \
+    DO(::PFNGLCREATESHADERPROC, glCreateShader)   \
+    DO(::PFNGLDELETESHADERPROC, glDeleteShader)   \
+    DO(::PFNGLSHADERSOURCEPROC, glShaderSource)   \
+    DO(::PFNGLCOMPILESHADERPROC, glCompileSource) \
+    DO(::PFNGLGETSHADERIVPROC, glGetShaderIV)
 
 #if !defined(NO_EXTERN)
 #define DO_EXTERN(TYPE, NAME) extern TYPE NAME;

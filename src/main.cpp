@@ -6,8 +6,54 @@
 #include "window.h"
 #include "exception.h"
 #include "opengl.h"
+#include "auto_release.h"
 
-auto main() -> int
+namespace
+{
+    static constexpr auto vertex_shader = R"(
+#version 460 core
+
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec3 colour;
+
+out vec3 vertex_colour;
+
+void main()
+{
+gl_Position = vec4(position, 1.0);
+vertex_colour = colour;
+}
+)";
+
+    static constexpr auto fragment_shader = R"(
+#version 460 core
+
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec3 colour;
+
+out vec3 vertex_colour;
+
+void main()
+{
+gl_Position = vec4(position, 1.0);
+vertex_colour = colour;
+}
+)";
+
+    auto compile_shader(std::string_view source, ::GLenum shader_type) -> game::AutoRelease<::GLuint>
+    {
+        auto shader = game::AutoRelease<::GLuint>{
+            ::glCreateShader(shader_type), ::glDeleteShader};
+
+        const ::GLchar *strings[] = {source.data()};
+        const ::GLint lengths[] = {static_cast<::GLint>(source.length())};
+        ::glShaderSource(shader, 1, strings, lengths);
+        return shader;
+    }
+
+}
+
+int main()
 {
     std::println("hello world!");
 
