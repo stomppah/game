@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <print>
 
-#define NO_EXTERN
 #include "opengl.h"
 
 #include "auto_release.h"
