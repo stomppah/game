@@ -24,7 +24,8 @@
     DO(::PFNGLVERTEXATTRIBPOINTERPROC, glVertexAttribPointer)         \
     DO(::PFNGLENABLEVERTEXATTRIBARRAYPROC, glEnableVertexAttribArray) \
     DO(::PFNGLUSEPROGRAMPROC, glUseProgram)                           \
-    DO(::PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArrays)
+    DO(::PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArrays)           \
+    DO(::PFNGLDELETEBUFFERSPROC, glDeleteBuffers)
 
 #define DO_DEFINE(TYPE, NAME) inline TYPE NAME;
 FOR_OPENGL_FUNCTIONS(DO_DEFINE)
