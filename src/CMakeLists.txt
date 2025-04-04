@@ -3,6 +3,7 @@ add_executable(game
     main.cpp
     window.cpp
     shader.cpp
+    material.cpp
 )
 
 target_include_directories(game PUBLIC ${PROJECT_SOURCE_DIR}/third-party/opengl)
