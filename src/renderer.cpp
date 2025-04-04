@@ -29,7 +29,7 @@ namespace game
 
         static auto matrix = Matrix4{};
         static const auto view = matrix.lookAt(
-            {.x = 0.5f, .y = 0.0f, .z = 1.0f},
+            {.x = 0.5f, .y = 0.0f, .z = 5.0f},
             {.x = 0.0f, .y = 0.0f, .z = 0.0f},
             {.x = 0.0f, .y = 1.0f, .z = 0.0f});
         const auto view_uniform = ::glGetUniformLocation(material_.native_handle(), "view");
