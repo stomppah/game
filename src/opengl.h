@@ -7,27 +7,27 @@
 #include "third-party/opengl/wglext.h"
 
 #define FOR_OPENGL_FUNCTIONS(DO)                                      \
-    DO(::PFNGLCREATESHADERPROC, glCreateShader)                       \
-    DO(::PFNGLDELETESHADERPROC, glDeleteShader)                       \
-    DO(::PFNGLSHADERSOURCEPROC, glShaderSource)                       \
-    DO(::PFNGLCOMPILESHADERPROC, glCompileShader)                     \
-    DO(::PFNGLGETSHADERIVPROC, glGetShaderiv)                         \
-    DO(::PFNGLCREATEPROGRAMPROC, glCreateProgram)                     \
-    DO(::PFNGLDELETEPROGRAMPROC, glDeleteProgram)                     \
     DO(::PFNGLATTACHSHADERPROC, glAttachShader)                       \
-    DO(::PFNGLLINKPROGRAMPROC, glLinkProgram)                         \
-    DO(::PFNGLGENVERTEXARRAYSPROC, glGenVertexArrays)                 \
-    DO(::PFNGLGENBUFFERSPROC, glGenBuffers)                           \
-    DO(::PFNGLBINDVERTEXARRAYPROC, glBindVertexArray)                 \
     DO(::PFNGLBINDBUFFERPROC, glBindBuffer)                           \
+    DO(::PFNGLBINDVERTEXARRAYPROC, glBindVertexArray)                 \
     DO(::PFNGLBUFFERDATAPROC, glBufferData)                           \
-    DO(::PFNGLVERTEXATTRIBPOINTERPROC, glVertexAttribPointer)         \
-    DO(::PFNGLENABLEVERTEXATTRIBARRAYPROC, glEnableVertexAttribArray) \
-    DO(::PFNGLUSEPROGRAMPROC, glUseProgram)                           \
-    DO(::PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArrays)           \
-    DO(::PFNGLDELETEBUFFERSPROC, glDeleteBuffers)                     \
+    DO(::PFNGLCOMPILESHADERPROC, glCompileShader)                     \
+    DO(::PFNGLCREATEPROGRAMPROC, glCreateProgram)                     \
+    DO(::PFNGLCREATESHADERPROC, glCreateShader)                       \
     DO(::PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback)       \
-    DO(::PFNGLGETUNIFORMLOCATIONPROC, glGetUniformLocation)
+    DO(::PFNGLDELETEBUFFERSPROC, glDeleteBuffers)                     \
+    DO(::PFNGLDELETEPROGRAMPROC, glDeleteProgram)                     \
+    DO(::PFNGLDELETESHADERPROC, glDeleteShader)                       \
+    DO(::PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArrays)           \
+    DO(::PFNGLENABLEVERTEXATTRIBARRAYPROC, glEnableVertexAttribArray) \
+    DO(::PFNGLGENBUFFERSPROC, glGenBuffers)                           \
+    DO(::PFNGLGENVERTEXARRAYSPROC, glGenVertexArrays)                 \
+    DO(::PFNGLGETSHADERIVPROC, glGetShaderiv)                         \
+    DO(::PFNGLGETUNIFORMLOCATIONPROC, glGetUniformLocation)           \
+    DO(::PFNGLLINKPROGRAMPROC, glLinkProgram)                         \
+    DO(::PFNGLSHADERSOURCEPROC, glShaderSource)                       \
+    DO(::PFNGLUSEPROGRAMPROC, glUseProgram)                           \
+    DO(::PFNGLVERTEXATTRIBPOINTERPROC, glVertexAttribPointer)
 
 #define DO_DEFINE(TYPE, NAME) inline TYPE NAME;
 FOR_OPENGL_FUNCTIONS(DO_DEFINE)
