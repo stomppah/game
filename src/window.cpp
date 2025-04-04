@@ -158,6 +158,7 @@ namespace
     auto setup_debug() -> void
     {
         ::glEnable(GL_DEBUG_OUTPUT);
+        ::glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         ::glDebugMessageCallback(opengl_debug_callback, nullptr);
     }
 }
