@@ -77,7 +77,8 @@
 			"random": "cpp",
 			"sstream": "cpp",
 			"stack": "cpp",
-			"stacktrace": "cpp"
+			"stacktrace": "cpp",
+			"source_location": "cpp"
 		}
 	}
 }

@@ -6,6 +6,7 @@
 #include "auto_release.h"
 #include "error.h"
 #include "exception.h"
+#include "log.h"
 #include "material.h"
 #include "mesh.h"
 #include "renderer.h"
@@ -45,7 +46,7 @@ frag_colour = vec4(vertex_colour, 1.0);
 
 auto main() -> int
 {
-    std::println("hello world!");
+    game::log::info("hello world!");
 
     try
     {

@@ -17,6 +17,18 @@ namespace
 
     auto g_running = true;
 
+    auto APIENTRY opengl_debug_callback(
+        ::GLenum source,
+        ::GLenum type,
+        ::GLuint id,
+        ::GLenum severity,
+        ::GLsizei length,
+        const GLchar *message,
+        [[maybe_unused]] const void *userParam) -> void
+    {
+        std::print("{} {} {} {} {} {}", source, type, id, severity, length, message);
+    }
+
     auto CALLBACK window_proc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam) -> LRESULT
     {
         switch (Msg)
@@ -142,6 +154,12 @@ namespace
 #define RESOLVE(TYPE, NAME) resolve_gl_function(NAME, #NAME);
         FOR_OPENGL_FUNCTIONS(RESOLVE)
     }
+
+    auto setup_debug() -> void
+    {
+        ::glEnable(GL_DEBUG_OUTPUT);
+        ::glDebugMessageCallback(opengl_debug_callback, nullptr);
+    }
 }
 
 namespace game
@@ -193,6 +211,7 @@ namespace game
 
         init_opengl(dc_);
         resolve_global_gl_functions();
+        setup_debug();
     }
 
     auto Window::running() const -> bool
