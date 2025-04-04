@@ -8,6 +8,7 @@
 #include "exception.h"
 #include "log.h"
 #include "material.h"
+#include "matrix4.h"
 #include "mesh.h"
 #include "renderer.h"
 #include "shader.h"
@@ -23,9 +24,13 @@ layout(location = 1) in vec3 colour;
 
 out vec3 vertex_colour;
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 void main()
 {
-gl_Position = vec4(position, 1.0);
+gl_Position = projection * view * model * vec4(position, 1.0);
 vertex_colour = colour;
 }
 )";
@@ -47,6 +52,19 @@ frag_colour = vec4(vertex_colour, 1.0);
 auto main() -> int
 {
     game::log::info("hello world!");
+
+    auto m1 = game::Matrix4{{1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f}};
+
+    auto m2 = game::Matrix4{{1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f,
+                             1.0f, 2.0f, 3.0f, 4.0f}};
+
+    m1 *= m2;
+    std::print("{}", m1);
 
     try
     {
