@@ -54,6 +54,11 @@ namespace game
 
         explicit operator bool() const { return obj_ != Invalid; }
 
+        T *operator&() noexcept
+        {
+            return std::addressof(obj_);
+        }
+
     private:
         T obj_;
         std::function<void(T)> deleter_;
