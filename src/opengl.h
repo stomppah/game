@@ -24,6 +24,7 @@
     DO(::PFNGLGENVERTEXARRAYSPROC, glGenVertexArrays)                 \
     DO(::PFNGLGETSHADERIVPROC, glGetShaderiv)                         \
     DO(::PFNGLGETUNIFORMLOCATIONPROC, glGetUniformLocation)           \
+    DO(::PFNGLUNIFORMMATRIX4FVPROC, glUniformMatrix4fv)               \
     DO(::PFNGLLINKPROGRAMPROC, glLinkProgram)                         \
     DO(::PFNGLSHADERSOURCEPROC, glShaderSource)                       \
     DO(::PFNGLUSEPROGRAMPROC, glUseProgram)                           \
