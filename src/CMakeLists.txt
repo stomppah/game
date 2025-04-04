@@ -3,6 +3,7 @@ add_executable(game
     main.cpp
     material.cpp
     mesh.cpp
+    renderer.cpp
     shader.cpp
     window.cpp
 )
