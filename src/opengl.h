@@ -26,7 +26,8 @@
     DO(::PFNGLUSEPROGRAMPROC, glUseProgram)                           \
     DO(::PFNGLDELETEVERTEXARRAYSPROC, glDeleteVertexArrays)           \
     DO(::PFNGLDELETEBUFFERSPROC, glDeleteBuffers)                     \
-    DO(::PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback)
+    DO(::PFNGLDEBUGMESSAGECALLBACKPROC, glDebugMessageCallback)       \
+    DO(::PFNGLGETUNIFORMLOCATIONPROC, glGetUniformLocation)
 
 #define DO_DEFINE(TYPE, NAME) inline TYPE NAME;
 FOR_OPENGL_FUNCTIONS(DO_DEFINE)
