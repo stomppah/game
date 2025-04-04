@@ -46,11 +46,43 @@ namespace game
             auto m = Matrix4{};
 
             m.elements_ = {{s.x, u.x, -f.x, 0.0f,
-                          s.y, u.y, -f.y, 0.0f,
-                          s.z, u.z, -f.z, 0.0f,
-                          0.0f, 0.0f, 0.0f, 1.0f}};
+                            s.y, u.y, -f.y, 0.0f,
+                            s.z, u.z, -f.z, 0.0f,
+                            0.0f, 0.0f, 0.0f, 1.0f}};
 
             return m * Matrix4(-eye);
+        }
+
+        auto perspective(float fov, float width, float height, float near_plane, float far_plane) -> Matrix4
+        {
+            Matrix4 m;
+
+            const auto aspect_ratio = width / height;
+            const auto tmp = std::tan(fov / 2.0f);
+            const auto t = tmp * near_plane;
+            const auto b = -t;
+            const auto r = t * aspect_ratio;
+            const auto l = b * aspect_ratio;
+
+            m.elements_ = {
+                {(2.0f * near_plane) / (r - l),
+                 0.0f,
+                 0.0f,
+                 0.0f,
+                 0.0f,
+                 (2.0f * near_plane) / (t - b),
+                 0.0f,
+                 0.0f,
+                 (r + l) / (r - l),
+                 (t + b) / (t - b),
+                 -(far_plane + near_plane) / (far_plane - near_plane),
+                 -1.0f,
+                 0.0f,
+                 0.0f,
+                 -(2.0f * far_plane * near_plane) / (far_plane - near_plane),
+                 0.0f}};
+
+            return m;
         }
 
         constexpr auto data() const -> std::span<const float>
