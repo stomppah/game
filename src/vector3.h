@@ -9,7 +9,7 @@ namespace game
     {
         static auto normalise(const Vector3 &v) -> Vector3
         {
-            const auto length = std::hypot(v.x, v.y, v.z);
+            const auto length = std::sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
             auto tmp = Vector3{.x = v.x / length, .y = v.y / length, .z = v.z / length};
             return tmp;
         }
