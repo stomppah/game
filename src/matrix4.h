@@ -92,6 +92,7 @@ namespace game
 
         friend constexpr auto operator*=(Matrix4 &m1, const Matrix4 &m2) -> Matrix4 &;
         friend constexpr auto operator*(const Matrix4 &m1, const Matrix4 &m2) -> Matrix4;
+        constexpr auto operator==(const Matrix4 &) const -> bool = default;
     };
 
     constexpr auto operator*=(Matrix4 &m1, const Matrix4 &m2) -> Matrix4 &

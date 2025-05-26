@@ -23,6 +23,8 @@ namespace game
             return Vector3{.x = i, .y = -j, .z = k};
         }
 
+        constexpr auto operator==(const Vector3 &) const -> bool = default;
+
         float x;
         float y;
         float z;
