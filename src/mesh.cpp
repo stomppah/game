@@ -19,26 +19,39 @@ namespace
         {.position = {.x = 1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.85f, .g = 0.22f, .b = 0.47f}},
 
         {.position = {.x = -1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
-        {.position = {.x = -1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
         {.position = {.x = 1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
         {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
         {.position = {.x = -1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
         {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
+        {.position = {.x = -1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.33f, .g = 0.76f, .b = 0.87f}},
 
+        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+        {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+        {.position = {.x = 1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+        {.position = {.x = 1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+        {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.29f, .g = 0.68f, .b = 0.31f}},
+
+        {.position = {.x = -1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
+        {.position = {.x = -1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
         {.position = {.x = -1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
-        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
-        {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
-        {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
-        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
-        {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
+        {.position = {.x = -1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
+        {.position = {.x = -1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
+        {.position = {.x = -1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.91f, .g = 0.43f, .b = 0.15f}},
 
+        {.position = {.x = -1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
         {.position = {.x = 1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
+        {.position = {.x = 1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
+        {.position = {.x = -1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
+        {.position = {.x = -1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
         {.position = {.x = -1.0f, .y = 1.0f, .z = 1.0f}, .colour = {.r = 0.56f, .g = 0.34f, .b = 0.82f}},
 
+        {.position = {.x = -1.0f, .y = 1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
+        {.position = {.x = 1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
+        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
         {.position = {.x = -1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
-        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
-        {.position = {.x = 1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
-        {.position = {.x = -1.0f, .y = -1.0f, .z = -1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}}
+        {.position = {.x = -1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}},
+        {.position = {.x = 1.0f, .y = -1.0f, .z = 1.0f}, .colour = {.r = 0.94f, .g = 0.91f, .b = 0.17f}}
 
     };
 

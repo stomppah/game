@@ -213,6 +213,7 @@ namespace game
         init_opengl(dc_);
         resolve_global_gl_functions();
         setup_debug();
+        ::glEnable(GL_CULL_FACE);
     }
 
     auto Window::running() const -> bool
