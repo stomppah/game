@@ -1,9 +1,11 @@
-#include <print>
 #include <format>
-#include <stdexcept>
 #include <iostream>
+#include <numbers>
+#include <print>
+#include <stdexcept>
 
 #include "auto_release.h"
+#include "camera.h"
 #include "error.h"
 #include "exception.h"
 #include "log.h"
@@ -77,9 +79,19 @@ auto main() -> int
 
         const auto renderer = game::Renderer{std::move(material)};
 
+        const auto camera = game::Camera{
+            {.x = 3.0f, .y = 0.0f, .z = 5.0f},
+            {.x = 0.0f, .y = 0.0f, .z = 0.0f},
+            {.x = 0.0f, .y = 1.0f, .z = 0.0f},
+            std::numbers::pi_v<float> / 4.0f,
+            800.0f,
+            600.0f,
+            0.1f,
+            100.0f};
+
         while (window.running())
         {
-            renderer.render();
+            renderer.render(camera);
             window.swap();
         }
     }
