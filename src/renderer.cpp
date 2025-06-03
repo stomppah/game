@@ -51,7 +51,7 @@ namespace game
 
         // draw
         mesh_.bind();
-        ::glDrawArrays(GL_TRIANGLES, 0, 26);
+        ::glDrawArrays(GL_TRIANGLES, 0, 36);
         mesh_.unbind();
     }
 }
