@@ -1,4 +1,5 @@
 add_executable(game
+    camera.cpp
     exception.cpp
     main.cpp
     material.cpp
