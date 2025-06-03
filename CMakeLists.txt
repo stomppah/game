@@ -8,6 +8,7 @@ project(
 )
 
 enable_testing()
+include(CTest)
 
 include(FetchContent)
 
