@@ -5,11 +5,12 @@
 #include "material.h"
 #include "matrix4.h"
 #include "mesh.h"
+#include "vector3.h"
 
 namespace game
 {
-    Entity::Entity(const Mesh *mesh, const Material *material)
-        : mesh_(mesh), material_(material), model_()
+    Entity::Entity(const Mesh *mesh, const Material *material, const Vector3 &position)
+        : mesh_(mesh), material_(material), model_(Matrix4{position})
     {
     }
 

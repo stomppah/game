@@ -80,9 +80,12 @@ auto main() -> int
         auto material = game::Material{vertex_shader, fragment_shader};
         const auto mesh = game::Mesh{};
         const auto renderer = game::Renderer{};
-        const auto entity = game::Entity{&mesh, &material};
+        const auto entity = game::Entity{&mesh, &material, game::Vector3{.x = 0.0f, .y = 0.0f, .z = 0.0f}};
+        const auto entity1 = game::Entity{&mesh, &material, game::Vector3{.x = -3.0f, .y = 0.0f, .z = 0.0f}};
+        const auto entity2 = game::Entity{&mesh, &material, game::Vector3{.x = 3.0f, .y = 0.0f, .z = 0.0f}};
+
         auto scene = game::Scene{
-            .entities{&entity}};
+            .entities{&entity, &entity1, &entity2}};
 
         const auto camera = game::Camera{
             {.x = 3.0f, .y = 0.0f, .z = 5.0f},

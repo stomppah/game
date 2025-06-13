@@ -3,6 +3,7 @@
 #include <span>
 
 #include "matrix4.h"
+#include "vector3.h"
 
 namespace game
 {
@@ -13,7 +14,7 @@ namespace game
     {
 
     public:
-        Entity(const Mesh *mesh, const Material *material);
+        Entity(const Mesh *mesh, const Material *material, const Vector3 &position);
 
         auto mesh() const -> const Mesh *;
         auto material() const -> const Material *;
