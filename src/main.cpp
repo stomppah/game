@@ -6,6 +6,7 @@
 
 #include "auto_release.h"
 #include "camera.h"
+#include "entity.h"
 #include "error.h"
 #include "exception.h"
 #include "log.h"
@@ -13,6 +14,7 @@
 #include "matrix4.h"
 #include "mesh.h"
 #include "renderer.h"
+#include "scene.h"
 #include "shader.h"
 #include "window.h"
 
@@ -76,8 +78,11 @@ auto main() -> int
         const auto vertex_shader = game::Shader{vertex_shader_src, game::ShaderType::VERTEX};
         const auto fragment_shader = game::Shader{fragment_shader_src, game::ShaderType::FRAGMENT};
         auto material = game::Material{vertex_shader, fragment_shader};
-
-        const auto renderer = game::Renderer{std::move(material)};
+        const auto mesh = game::Mesh{};
+        const auto renderer = game::Renderer{};
+        const auto entity = game::Entity{&mesh, &material};
+        auto scene = game::Scene{
+            .entities{&entity}};
 
         const auto camera = game::Camera{
             {.x = 3.0f, .y = 0.0f, .z = 5.0f},
@@ -91,7 +96,7 @@ auto main() -> int
 
         while (window.running())
         {
-            renderer.render(camera);
+            renderer.render(camera, scene);
             window.swap();
         }
     }
