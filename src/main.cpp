@@ -3,11 +3,14 @@
 #include <numbers>
 #include <print>
 #include <stdexcept>
+#include <type_traits>
+#include <variant>
 
 #include "auto_release.h"
 #include "camera.h"
 #include "entity.h"
 #include "error.h"
+#include "event.h"
 #include "exception.h"
 #include "log.h"
 #include "material.h"
@@ -16,6 +19,7 @@
 #include "renderer.h"
 #include "scene.h"
 #include "shader.h"
+#include "stop_event.h"
 #include "window.h"
 
 namespace
@@ -87,8 +91,23 @@ auto main() -> int
             0.1f,
             100.0f};
 
-        while (window.running())
+        auto running = true;
+        while (running)
         {
+            auto event = window.pump_event();
+            while (event && running)
+            {
+                std::visit([&](auto &&args)
+                           {
+                               using T = std::decay_t<decltype(args)>;
+
+                               if constexpr (std::same_as<T, game::StopEvent>)
+                               {
+                                running = false;
+                               } },
+                           *event);
+                event = window.pump_event();
+            }
             renderer.render(camera, scene);
             window.swap();
         }

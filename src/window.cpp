@@ -1,12 +1,17 @@
 #include "window.h"
 
 #include <cstdint>
+#include <optional>
 #include <print>
+#include <queue>
+#include <ranges>
 
 #include "opengl.h"
 
 #include "auto_release.h"
 #include "error.h"
+#include "event.h"
+#include "stop_event.h"
 
 #pragma comment(lib, "OpenGL32.lib")
 
@@ -15,7 +20,7 @@ namespace
     PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB{};
     PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB{};
 
-    auto g_running = true;
+    auto g_event_queue = std::queue<game::Event>{};
 
     auto APIENTRY opengl_debug_callback(
         ::GLenum source,
@@ -34,7 +39,7 @@ namespace
         switch (Msg)
         {
         case WM_CLOSE:
-            g_running = false;
+            g_event_queue.emplace(game::StopEvent{});
             break;
         case WM_KEYDOWN:
             std::println("key down");
@@ -216,7 +221,7 @@ namespace game
         ::glEnable(GL_DEPTH_TEST);
     }
 
-    auto Window::running() const -> bool
+    auto Window::pump_event() const -> std::optional<Event>
     {
         auto message = ::MSG{};
         while (::PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE) != 0)
@@ -225,7 +230,14 @@ namespace game
             ::DispatchMessageA(&message);
         }
 
-        return g_running;
+        if (!std::ranges::empty(g_event_queue))
+        {
+            const auto event = g_event_queue.front();
+            g_event_queue.pop();
+            return event;
+        }
+
+        return {};
     }
 
     auto Window::swap() const -> void

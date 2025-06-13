@@ -1,10 +1,12 @@
 #pragma once
 
 #include <cstdint>
+#include <optional>
 
 #include <Windows.h>
 
 #include "auto_release.h"
+#include "event.h"
 
 namespace game
 {
@@ -25,7 +27,7 @@ namespace game
         Window(Window &&) = delete;
         auto operator=(Window &&) -> Window & = delete;
 
-        auto running() const -> bool;
+        auto pump_event() const -> std::optional<Event>;
         auto swap() const -> void;
     };
 }
