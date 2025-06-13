@@ -57,19 +57,6 @@ auto main() -> int
 {
     game::log::info("hello world!");
 
-    auto m1 = game::Matrix4{{1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f}};
-
-    auto m2 = game::Matrix4{{1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f,
-                             1.0f, 2.0f, 3.0f, 4.0f}};
-
-    m1 *= m2;
-    std::print("{}", m1);
-
     try
     {
         game::Window window{800u, 600u};
