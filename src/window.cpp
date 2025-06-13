@@ -214,7 +214,6 @@ namespace game
         resolve_global_gl_functions();
         setup_debug();
         ::glEnable(GL_DEPTH_TEST);
-        ::glEnable(GL_CULL_FACE);
     }
 
     auto Window::running() const -> bool
