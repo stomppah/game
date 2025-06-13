@@ -12,7 +12,7 @@ namespace game::log
         DEBUG,
         INFO,
         WARN,
-        ERROR
+        ERR
     };
 
     template <Level L, class... Args>
@@ -23,7 +23,7 @@ namespace game::log
     template <Level L, class... Args>
     struct print<L, const char *, Args...>
     {
-        print(const char *msg, Args &&...args, [[maybe_unused]] std::source_location loc = std::source_location::current())
+        print(const char *msg, const Args&... args, [[maybe_unused]] std::source_location loc = std::source_location::current())
         {
             auto c = "?";
             if constexpr (L == Level::DEBUG)
@@ -41,7 +41,7 @@ namespace game::log
                 c = "WARN";
             }
 
-            if constexpr (L == Level::ERROR)
+            if constexpr (L == Level::ERR)
             {
                 c = "ERROR";
             }
@@ -65,5 +65,6 @@ namespace game::log
     using warn = print<Level::WARN, Args...>;
 
     template <class... Args>
-    using error = print<Level::ERROR, Args...>;
+    using error = print<Level::ERR, Args...>;
 }
+

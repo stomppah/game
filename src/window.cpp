@@ -11,6 +11,7 @@
 #include "auto_release.h"
 #include "error.h"
 #include "event.h"
+#include "log.h"
 #include "stop_event.h"
 
 #pragma comment(lib, "OpenGL32.lib")
@@ -42,7 +43,7 @@ namespace
             g_event_queue.emplace(game::StopEvent{});
             break;
         case WM_KEYDOWN:
-            std::println("key down");
+            game::log::debug("key down {}", wParam);
             break;
 
         default:
@@ -174,9 +175,9 @@ namespace game
         : window_({}), dc_({}), wc_({})
     {
         wc_ = {};
-        wc_.lpfnWndProc = window_proc,
-        wc_.hInstance = ::GetModuleHandleA(nullptr),
-        wc_.lpszClassName = "window class",
+        wc_.lpfnWndProc = window_proc;
+        wc_.hInstance = ::GetModuleHandleA(nullptr);
+        wc_.lpszClassName = "window class";
         wc_.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 
         ensure(::RegisterClassA(&wc_) != 0, "failed to register class");
