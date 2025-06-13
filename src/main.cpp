@@ -12,6 +12,7 @@
 #include "error.h"
 #include "event.h"
 #include "exception.h"
+#include "key_event.h"
 #include "log.h"
 #include "material.h"
 #include "matrix4.h"
@@ -104,6 +105,9 @@ auto main() -> int
                                if constexpr (std::same_as<T, game::StopEvent>)
                                {
                                 running = false;
+                               }
+                               else if constexpr (std::same_as<T, game::KeyEvent>){
+                                game::log::debug("Key Press: {}", args.key());
                                } },
                            *event);
                 event = window.pump_event();
