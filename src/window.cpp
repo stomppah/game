@@ -43,6 +43,17 @@ namespace
             g_event_queue.emplace(game::StopEvent{});
             break;
         case WM_KEYDOWN:
+            /***
+                [DEBUG] key down 87 = W
+                [DEBUG] key down 83 = S
+                [DEBUG] key down 65 = A
+                [DEBUG] key down 68 = D
+                [DEBUG] key down 38 = Up
+                [DEBUG] key down 40 = Down
+                [DEBUG] key down 37 = Left
+                [DEBUG] key down 39 = Right
+                [DEBUG] key down 27 = Esc
+             */
             game::log::debug("key down {}", wParam);
             break;
 
