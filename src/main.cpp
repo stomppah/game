@@ -67,12 +67,15 @@ auto main() -> int
         auto material = game::Material{vertex_shader, fragment_shader};
         const auto mesh = game::Mesh{};
         const auto renderer = game::Renderer{};
-        const auto entity = game::Entity{&mesh, &material, game::Vector3{.x = 0.0f, .y = 0.0f, .z = 0.0f}};
-        const auto entity1 = game::Entity{&mesh, &material, game::Vector3{.x = -3.0f, .y = 0.0f, .z = 0.0f}};
-        const auto entity2 = game::Entity{&mesh, &material, game::Vector3{.x = 3.0f, .y = 0.0f, .z = 0.0f}};
+        const auto entity = game::Entity{&mesh, &material, game::Vector3{.x = 0.0f, .y = -1.0f, .z = 0.0f}};
+        const auto entity1 = game::Entity{&mesh, &material, game::Vector3{.x = -3.0f, .y = -1.0f, .z = 0.0f}};
+        const auto entity2 = game::Entity{&mesh, &material, game::Vector3{.x = 3.0f, .y = -1.0f, .z = 0.0f}};
+        const auto entity3 = game::Entity{&mesh, &material, game::Vector3{.x = 0.0f, .y = 2.0f, .z = 0.0f}};
+        const auto entity4 = game::Entity{&mesh, &material, game::Vector3{.x = -3.0f, .y = 2.0f, .z = 0.0f}};
+        const auto entity5 = game::Entity{&mesh, &material, game::Vector3{.x = 3.0f, .y = 2.0f, .z = 0.0f}};
 
         auto scene = game::Scene{
-            .entities{&entity, &entity1, &entity2}};
+            .entities{&entity, &entity1, &entity2, &entity3, &entity4, &entity5}};
 
         const auto camera = game::Camera{
             {.x = 3.0f, .y = 0.0f, .z = 5.0f},
