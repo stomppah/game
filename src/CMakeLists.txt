@@ -2,6 +2,7 @@ add_executable(game
     camera.cpp
     entity.cpp
     exception.cpp
+    key_event.cpp
     main.cpp
     material.cpp
     mesh.cpp
